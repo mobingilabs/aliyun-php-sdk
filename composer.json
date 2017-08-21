@@ -1,0 +1,21 @@
+{
+    "name": "mobingilabs/aliyun-php-client",
+    "description": "Aliyun PHP SDK Client Library",
+    "type": "library",
+    "require": {
+        "php": ">=5.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mobingi Labs",
+            "email": "support@mobingi.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Aliyun": "src/"
+        }
+    }
+}
+
