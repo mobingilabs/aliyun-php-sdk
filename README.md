@@ -17,4 +17,4 @@ print_r($result);
 
 ## Authors && Contributors
 
-- [SnhrK](https://github.com/SnhrK)
+- [Mobingi Labs](support@mobingi.com)
