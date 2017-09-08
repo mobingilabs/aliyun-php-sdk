@@ -1,5 +1,5 @@
 {
-    "name": "snhrk/aliyun-php-sdk",
+    "name": "mobingilabs/aliyun-php-sdk",
     "description": "Aliyun PHP SDK Client Library",
     "type": "library",
     "require": {
