@@ -1,0 +1,15 @@
+<phpunit bootstrap="tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="Aliyun Test Suite">
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+       <whitelist>
+           <directory suffix=".php">./aliyun/</directory>
+           <exclude>
+              <directory suffix=".php">./aliyun/Common/OpenSdk/</directory>
+           </exclude>
+       </whitelist>
+    </filter>
+</phpunit>
