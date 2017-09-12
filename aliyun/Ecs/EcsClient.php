@@ -184,7 +184,7 @@ class EcsClient extends Client {
      * @return array result
      */
     function createKeypair(array $setter = [], $time = 0) {
-        $result = $this->executeClient(new Ecs\CreateKeypairRequest(), $setter+Method::POST, $time);
+        $result = $this->executeClient(new Ecs\CreateKeyPairRequest(), $setter+Method::POST, $time);
         return $result;
     }
 
