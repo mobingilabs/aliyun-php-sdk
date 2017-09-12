@@ -1,0 +1,21 @@
+language: php
+php:
+  - 7.1
+
+before_script:
+  - composer self-update
+  - composer install
+
+script:
+  - vendor/bin/phpunit --filter="DescribeRegion"
+
+env:
+  - secure: "LCriB/xik+7Pjq5k57U67FxpFpmblZpKCutfvcxm8mt7YjWkDKENPjhzve/9uvVxg6dfLDr0mUQpo41u2WDV3YcGdHESgMrh03yFPmPb2zVehJfSHvo/BMGpe72JoKrHCjgl5NNdhRY6LH1HD+SVccQOCxrnrDLNe802WNPDnI8wwlmPiPFWGhv4+E4j+OHhK/eDmhwZsaUnkyDAxmn5pqZazC1A6qd+ZbAbP3YvAItss4l7nbkaJGHGWfwIirq1HP73AdGW2UDKdfxNmU91UlWizvMVTFH0Hjl9lvYuPUiDAzPF1U3y71IV4sTcAX1dm1B05gAnlckfJqVEAlxPYqHnLJxwO60ipbp/UbFkldjej/ulV0S2j0vFNAvubI3VlAPZHQ6kCfK65o1kUOY9yhVUBf/DAphGHtWaOg3NtQy0Pz3K0hUGOWTYbklHBGaXpT7NZfp7n4sMqIx+c5ga3DAiSN9UKPB+DG4M3YNg2neK7ticUMoSKQwypyXEg0ClFwKmuqpcGGcOsjdK1fqDCMPouecZsSCRZurqM7ClRRuw8q9l4vrcyYA2ejQFvY4i7bzrroy0xoGxUmCQfknBSq0LY+b9u9hKBkucrtaZ63R/uCIloBc/wDfdPNoVEq5JWPC0Xh0vtv0Ete9JKNrF4FIV8KbdQLtj/JWnDGm4vOU="
+
+branches:
+  only:
+  - master
+  - "/^v?[0-9\\.]+/"
+
+notifications:
+  email: false
