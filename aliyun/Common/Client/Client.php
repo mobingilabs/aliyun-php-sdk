@@ -3,6 +3,7 @@ namespace Aliyun\Common\Client;
 use Aliyun\Common\Autoload\Autoload;
 use Aliyun\Common\Client\WaitTime;
 use Aliyun\Common\Client\Traits\ClientTrait;
+use \Exception;
 /**
  * Client set 'Aliyun Client'
  * @package Aliyun\Common\Client
@@ -68,18 +69,43 @@ class Client {
      * @param integer $waittime   Delay execution
      * @return $this Client
      */
-    public function retryExecuteClient($request, $setter, $chkStatus, $maxRetryCount = 5, $waittime = 0) {
-        $status = '';
+    public function retryExecuteClient($request, $setter, $chkStatus, $oper = 'describe', $message = null, $maxRetryCount = 5, $waittime = 0) {
+        $status = false;
         $retryCount = 0;
         if (empty($waittime)) $waittime = WaitTime::TIME;
-        while ($status != $chkStatus || $retryCount < $maxRetryCount) {
-            $status = $this->executeClient($request, $setter, $waittime);
-            if (!empty($setter['VpcId'])) $status = $status['Vpcs']['Vpc'][0]['Status'];
-            if (!empty($setter['VSwitchId'])) $status = $status['VSwitches']['VSwitch'][0]['Status'];
-            if (!empty($setter['InstanceIds'][0])) $status = $status['Instances']['Instance'][0]['Status'];
+        while ($status != true && $retryCount <= $maxRetryCount) {
+            try {
+                $status = $this->executeClient($request, $setter, $waittime);
+                switch ($oper) {
+                    case 'describe':
+                        $status = $this->retryDescribeStatus($setter, $status, $chkStatus);
+                        break;
+                    case 'create':
+                    case 'delete':
+                        return $status;
+                    default:
+                        break;
+                }
+            } catch (Exception $e) {
+                if (strpos($e->getMessage(), $message) === false) throw $e;
+            }
             $retryCount ++;
         }
         return $this;
+    }
+
+    /**
+     * retryDescribeStatus
+     * @param array $setter Aliyun Api Parameter
+     * @param boolean $status Status Check
+     * @param string $chkStatus Check StatusValue
+     * @return $status boolean
+     */
+    private function retryDescribeStatus($setter, $status, $chkStatus) {
+        if (!empty($setter['VpcId'])) $status = (boolean)($status['Vpcs']['Vpc'][0]['Status'] == $chkStatus);
+        if (!empty($setter['VSwitchId'])) $status = (boolean)($status['VSwitches']['VSwitch'][0]['Status'] == $chkStatus);
+        if (!empty($setter['InstanceIds'][0])) $status = (boolean)($status['Instances']['Instance'][0]['Status'] == $chkStatus);
+        return $status;
     }
 
 }

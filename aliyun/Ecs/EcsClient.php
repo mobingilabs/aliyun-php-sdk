@@ -2,6 +2,7 @@
 namespace Aliyun\Ecs;
 use Aliyun\Common\Client\Client;
 use Aliyun\Common\Client\Method;
+use Aliyun\Common\Client\Error;
 use Ecs\Request\V20140526 as Ecs;
 /**
  * EcsClient Aliyun Ecs Client to '/OpenSdk/aliyun-php-sdk-ecs/Ecs/Request/20140526'
@@ -117,7 +118,7 @@ class EcsClient extends Client {
      * @return array result
      */
     function deleteSecurityGroup(array $setter = [], $time = 0) {
-        $result = $this->executeClient(new Ecs\DeleteSecurityGroupRequest(), $setter+Method::POST, $time);
+        $result = $this->retryExecuteClient(new Ecs\DeleteSecurityGroupRequest(), $setter+Method::POST, '', 'delete', Error::MESSAGE['deleteSecurityGroup'], 10, $time);
         return $result;
     }
 
@@ -217,7 +218,7 @@ class EcsClient extends Client {
      * @return array result
      */
     function createInstance(array $setter = [], $time = 0) {
-        $result = $this->executeClient(new Ecs\CreateInstanceRequest(), $setter+Method::POST, $time);
+        $result = $this->retryExecuteClient(new Ecs\CreateInstanceRequest(), $setter+Method::POST, '', 'create', Error::MESSAGE['createInstance'], 10, $time);
         return $result;
     }
 
@@ -239,7 +240,7 @@ class EcsClient extends Client {
      * @return array result
      */
     function deleteInstance(array $setter = [], $describe, $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\DescribeInstancesRequest(), $describe+Method::GET, 'Stopped')
+        $result = $this->retryExecuteClient(new Ecs\DescribeInstancesRequest(), $describe+Method::GET, 'Stopped', 'describe', null, 10, 2000000)
             ->executeClient(new Ecs\DeleteInstanceRequest(), $setter+Method::POST, $time);
         return $result;
     }

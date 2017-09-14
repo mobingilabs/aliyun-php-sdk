@@ -18,4 +18,15 @@ class RdsClient extends Client {
         $result = $this->executeClient(new Rds\CreateDBInstanceRequest(), $setter+Method::POST, $time);
         return $result;
     }
+
+    /**
+     * delete DBInstance
+     * @param array $setter Setter is options eg.[Method => GET];
+     * @param integer $time Time to delay execution
+     * @return array result
+     */
+     function deleteDBInstance(array $setter = [], $time = 0) {
+        $result = $this->executeClient(new Rds\DeleteDBInstanceRequest(), $setter+Method::POST, $time);
+        return $result;
+    }
 }
