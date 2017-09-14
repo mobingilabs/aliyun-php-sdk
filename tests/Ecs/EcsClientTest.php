@@ -223,7 +223,7 @@ class EcsClientTest extends AliyunTestBase {
         $this->assertInternalType("string", $instance_id);
         $setter = ['InstanceId' => $instance_id];
         $describe = ['InstanceIds' => json_encode([$instance_id])];
-        $actual = $this->target->stopInstance($setter, 4000000);
+        $actual = $this->target->stopInstance($setter, 5000000);
         $this->assertInternalType("array", $actual);
         $actual = $this->target->deleteInstance($setter, $describe);
         $this->assertInternalType("array", $actual);
@@ -276,7 +276,7 @@ class EcsClientTest extends AliyunTestBase {
         $sg_id = $this->target->describeSecurityGroup()['SecurityGroups']['SecurityGroup'][0]['SecurityGroupId'];
         $this->assertInternalType("string", $sg_id);
         $setter = ['SecurityGroupId' => $sg_id];
-        $actual = $this->target->deleteSecurityGroup($setter);
+        $actual = $this->target->deleteSecurityGroup($setter, 1000000);
         $this->assertInternalType("array", $actual);
     }
 
