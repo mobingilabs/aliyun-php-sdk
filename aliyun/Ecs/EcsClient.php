@@ -117,8 +117,8 @@ class EcsClient extends Client {
      * @param integer $time Time to delay execution
      * @return array result
      */
-    function deleteSecurityGroup(array $setter = [], $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\DeleteSecurityGroupRequest(), $setter+Method::POST, '', 'delete', Error::MESSAGE['deleteSecurityGroup'], 10, $time);
+    function deleteSecurityGroup(array $setter = [], $time = 0, $retrycount = 10) {
+        $result = $this->retryExecuteClient(new Ecs\DeleteSecurityGroupRequest(), $setter+Method::POST, '', $time, $retrycount, 'delete', Error::MESSAGE['deleteSecurityGroup']);
         return $result;
     }
 
@@ -217,8 +217,8 @@ class EcsClient extends Client {
      * @param integer $time Time to delay execution
      * @return array result
      */
-    function createInstance(array $setter = [], $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\CreateInstanceRequest(), $setter+Method::POST, '', 'create', Error::MESSAGE['createInstance'], 10, $time);
+    function createInstance(array $setter = [], $time = 0, $retrycount = 10) {
+        $result = $this->retryExecuteClient(new Ecs\CreateInstanceRequest(), $setter+Method::POST, '', $time, $retrycount, 'create', Error::MESSAGE['createInstance']);
         return $result;
     }
 
@@ -239,8 +239,8 @@ class EcsClient extends Client {
      * @param integer $time Time to delay execution
      * @return array result
      */
-    function deleteInstance(array $setter = [], $describe, $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\DescribeInstancesRequest(), $describe+Method::GET, 'Stopped', 'describe', null, 10, 2000000)
+    function deleteInstance(array $setter = [], $describe, $time = 0, $retrycount = 10) {
+        $result = $this->retryExecuteClient(new Ecs\DescribeInstancesRequest(), $describe+Method::GET, 'Stopped', 1000000, $retrycount)
             ->executeClient(new Ecs\DeleteInstanceRequest(), $setter+Method::POST, $time);
         return $result;
     }
