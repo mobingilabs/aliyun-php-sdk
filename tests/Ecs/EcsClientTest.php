@@ -22,6 +22,15 @@ class EcsClientTest extends AliyunTestBase {
     }
 
     /**
+     * Test for testDescribeZone
+     */
+    public function testDescribeZone() {
+        $actual = $this->target->describeZone();
+        $this->assertInternalType("array", $actual);
+        $this->assertArrayHasKey("Zones", $actual);
+    }
+
+    /**
      * Test for testCreateVpc
      */
     public function testCreateVpc() {

@@ -33,7 +33,7 @@ class EssClientTest extends AliyunTestBase {
         $this->assertInternalType("string", $vswitch_id);
         $loadbalancer_id = $this->slb->describeLoadBalancer()['LoadBalancers']['LoadBalancer'][0]['LoadBalancerId'];
         $this->assertInternalType("string", $loadbalancer_id);
-        $setter += ['LoadBalancerId' => $loadbalancer_id, 'VSwitchId' => $vswitch_id];
+        $setter += ['LoadBalancerIds' => json_encode([$loadbalancer_id]), 'VSwitchId' => $vswitch_id];
         $actual = $this->target->createScalingGroup($setter);
         $this->assertInternalType("array", $actual);
     }
@@ -84,7 +84,7 @@ class EssClientTest extends AliyunTestBase {
                   'InstanceType' => self::TEST_INSTANCE_TYPE,
                   'InternetChargeType' => 'PayByTraffic',
                   'InternetMaxBandwidthOut' => 100,
-                  'IoOptimized' => 'optimized'
+                  'IoOptimized' => 'optimized',
                 ]
             ],
         ];

@@ -13,6 +13,7 @@ class Error extends Enum {
     const MESSAGE = [
         'deleteSecurityGroup' => 'DependencyViolation There is still instance(s) in the specified security group.',
         'createInstance' => 'IncorrectVpcStatus Current VPC status does not support this operation.',
-        'createVSwitch' => 'IncorrectVpcStatus Current VPC status does not support this operation.'
+        'createVSwitch' => 'IncorrectVpcStatus Current VPC status does not support this operation.',
+        'deleteVSwitch' => 'DependencyViolation Specified object has dependent resources.'
     ];
 }

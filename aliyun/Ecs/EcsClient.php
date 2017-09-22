@@ -72,9 +72,9 @@ class EcsClient extends Client {
      * @param string $zonne_id ZeoneId
      * @return $this
      */
-    function deleteVSwitch(array $setter = [], $time = 0) {
+    function deleteVSwitch(array $setter = [], $time = 0, $retrycount = 10) {
         $result = $this->retryExecuteClient(new Ecs\DescribeVSwitchesRequest(), $setter+Method::GET, 'Available')
-            ->executeClient(new Ecs\DeleteVSwitchRequest(), $setter+Method::POST, $time);
+            ->retryExecuteClient(new Ecs\DeleteVSwitchRequest(), $setter+Method::POST, '', $time, $retrycount, 'delete', Error::MESSAGE['deleteVSwitch']);
         return $result;
     }
 
@@ -287,6 +287,17 @@ class EcsClient extends Client {
      */
     function describeDisk(array $setter = [], $time = 0) {
         $result = $this->executeClient(new Ecs\DescribeDisksRequest(), $setter+Method::GET, $time);
+        return $result;
+    }
+
+    /**
+     * describe ZoneId
+     * @param array $setter Setter is options eg.[Method => GET];
+     * @param integer $time Time to delay execution
+     * @return array result
+     */
+    function describeZone(array $setter = [], $time = 0) {
+        $result = $this->executeClient(new Ecs\DescribeZonesRequest(), $setter+Method::GET, $time);
         return $result;
     }
 }
