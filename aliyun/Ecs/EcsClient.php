@@ -117,7 +117,7 @@ class EcsClient extends Client {
      * @param integer $time Time to delay execution
      * @return array result
      */
-    function deleteSecurityGroup(array $setter = [], $time = 0, $retrycount = 10) {
+    function deleteSecurityGroup(array $setter = [], $time = 0, $retrycount = 20) {
         $result = $this->retryExecuteClient(new Ecs\DeleteSecurityGroupRequest(), $setter+Method::POST, '', $time, $retrycount, 'delete', Error::MESSAGE['deleteSecurityGroup']);
         return $result;
     }
