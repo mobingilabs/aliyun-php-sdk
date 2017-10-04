@@ -72,9 +72,9 @@ class EcsClient extends Client {
      * @param string $zonne_id ZeoneId
      * @return $this
      */
-    function deleteVSwitch(array $setter = [], $time = 0) {
+    function deleteVSwitch(array $setter = [], $time = 0, $retrycount = 10) {
         $result = $this->retryExecuteClient(new Ecs\DescribeVSwitchesRequest(), $setter+Method::GET, 'Available')
-            ->executeClient(new Ecs\DeleteVSwitchRequest(), $setter+Method::POST, $time);
+            ->retryExecuteClient(new Ecs\DeleteVSwitchRequest(), $setter+Method::POST, '', $time, $retrycount, 'delete', Error::MESSAGE['deleteVSwitch']);
         return $result;
     }
 
@@ -117,8 +117,8 @@ class EcsClient extends Client {
      * @param integer $time Time to delay execution
      * @return array result
      */
-    function deleteSecurityGroup(array $setter = [], $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\DeleteSecurityGroupRequest(), $setter+Method::POST, '', 'delete', Error::MESSAGE['deleteSecurityGroup'], 10, $time);
+    function deleteSecurityGroup(array $setter = [], $time = 0, $retrycount = 20) {
+        $result = $this->retryExecuteClient(new Ecs\DeleteSecurityGroupRequest(), $setter+Method::POST, '', $time, $retrycount, 'delete', Error::MESSAGE['deleteSecurityGroup']);
         return $result;
     }
 
@@ -217,8 +217,8 @@ class EcsClient extends Client {
      * @param integer $time Time to delay execution
      * @return array result
      */
-    function createInstance(array $setter = [], $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\CreateInstanceRequest(), $setter+Method::POST, '', 'create', Error::MESSAGE['createInstance'], 10, $time);
+    function createInstance(array $setter = [], $time = 0, $retrycount = 10) {
+        $result = $this->retryExecuteClient(new Ecs\CreateInstanceRequest(), $setter+Method::POST, '', $time, $retrycount, 'create', Error::MESSAGE['createInstance']);
         return $result;
     }
 
@@ -239,8 +239,8 @@ class EcsClient extends Client {
      * @param integer $time Time to delay execution
      * @return array result
      */
-    function deleteInstance(array $setter = [], $describe, $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\DescribeInstancesRequest(), $describe+Method::GET, 'Stopped', 'describe', null, 10, 2000000)
+    function deleteInstance(array $setter = [], $describe, $time = 0, $retrycount = 10) {
+        $result = $this->retryExecuteClient(new Ecs\DescribeInstancesRequest(), $describe+Method::GET, 'Stopped', 1000000, $retrycount)
             ->executeClient(new Ecs\DeleteInstanceRequest(), $setter+Method::POST, $time);
         return $result;
     }
@@ -287,6 +287,17 @@ class EcsClient extends Client {
      */
     function describeDisk(array $setter = [], $time = 0) {
         $result = $this->executeClient(new Ecs\DescribeDisksRequest(), $setter+Method::GET, $time);
+        return $result;
+    }
+
+    /**
+     * describe ZoneId
+     * @param array $setter Setter is options eg.[Method => GET];
+     * @param integer $time Time to delay execution
+     * @return array result
+     */
+    function describeZone(array $setter = [], $time = 0) {
+        $result = $this->executeClient(new Ecs\DescribeZonesRequest(), $setter+Method::GET, $time);
         return $result;
     }
 }

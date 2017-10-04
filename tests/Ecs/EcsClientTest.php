@@ -18,8 +18,16 @@ class EcsClientTest extends AliyunTestBase {
     public function testDescribeRegion() {
         $actual = $this->target->describeRegion();
         $this->assertInternalType("array", $actual);
-        $this->assertArrayHasKey("RequestId", $actual);
         $this->assertArrayHasKey("Regions", $actual);
+    }
+
+    /**
+     * Test for testDescribeZone
+     */
+    public function testDescribeZone() {
+        $actual = $this->target->describeZone();
+        $this->assertInternalType("array", $actual);
+        $this->assertArrayHasKey("Zones", $actual);
     }
 
     /**

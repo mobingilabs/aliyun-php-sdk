@@ -40,7 +40,7 @@ class CreateScalingGroupRequest extends \RpcAcsRequest
 
   private  $defaultCooldown;
 
-  private  $loadBalancerId;
+  private  $loadBalancerIds;
 
   private  $dBInstanceIds;
 
@@ -113,13 +113,13 @@ class CreateScalingGroupRequest extends \RpcAcsRequest
 		$this->queryParameters["DefaultCooldown"]=$defaultCooldown;
 	}
 
-  public function getLoadBalancerId() {
-		return $this->loadBalancerId;
+  public function getLoadBalancerIds() {
+		return $this->loadBalancerIds;
 	}
 
-	public function setLoadBalancerId($loadBalancerId) {
-		$this->loadBalancerId = $loadBalancerId;
-		$this->queryParameters["LoadBalancerId"]=$loadBalancerId;
+	public function setLoadBalancerIds($loadBalancerIds) {
+		$this->loadBalancerIds = $loadBalancerIds;
+		$this->queryParameters["LoadBalancerIds"]=$loadBalancerIds;
 	}
 
   public function getDBInstanceIds() {

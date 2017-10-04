@@ -69,6 +69,7 @@ class Client {
      * @param integer $waittime   Delay execution
      * @return $this Client
      */
+
     public function retryExecuteClient($request, $setter, $chkStatus, $oper = 'describe', $message = null, $maxRetryCount = 10, $waittime = 0) {
         $status = false;
         $retryCount = 0;
