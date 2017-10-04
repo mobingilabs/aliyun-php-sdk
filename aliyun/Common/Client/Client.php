@@ -70,7 +70,7 @@ class Client {
      * @return $this Client
      */
 
-    public function retryExecuteClient($request, $setter, $chkStatus, $maxRetryCount = 5, $waittime = 0, $oper = 'describe', $message = null) {
+    public function retryExecuteClient($request, $setter, $chkStatus, $waittime = 0, $maxRetryCount = 10, $oper = 'describe', $message = null) {
         $status = false;
         $retryCount = 0;
         if (empty($waittime)) $waittime = WaitTime::TIME;
