@@ -69,7 +69,7 @@ class Client {
      * @param integer $waittime   Delay execution
      * @return $this Client
      */
-    public function retryExecuteClient($request, $setter, $chkStatus, $oper = 'describe', $message = null, $maxRetryCount = 5, $waittime = 0) {
+    public function retryExecuteClient($request, $setter, $chkStatus, $oper = 'describe', $message = null, $maxRetryCount = 10, $waittime = 0) {
         $status = false;
         $retryCount = 0;
         if (empty($waittime)) $waittime = WaitTime::TIME;
