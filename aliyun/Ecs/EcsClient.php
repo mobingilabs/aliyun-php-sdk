@@ -61,7 +61,7 @@ class EcsClient extends Client {
      * @return $this
      */
     function createVSwitch(array $setter = [], $time = 0) {
-        $result = $this->retryExecuteClient(new Ecs\DescribeVpcsRequest(), ['VpcId' => $setter['VpcId']]+Method::GET, 'Available')
+        $result = $this->retryExecuteClient(new Ecs\DescribeVpcsRequest(), ['VpcId' => $setter['VpcId']]+Method::GET, 'Available', 10, 1000000)
             ->executeClient(new Ecs\CreateVSwitchRequest(), $setter+Method::POST, $time);
         return $result;
     }
