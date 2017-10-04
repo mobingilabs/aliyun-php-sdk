@@ -102,6 +102,7 @@
             <Product><ProductName>Kvstore</ProductName><DomainName>r-kvstore.ap-northeast-1.aliyuncs.com</DomainName></Product>
             <Product><ProductName>Slb</ProductName><DomainName>slb.ap-northeast-1.aliyuncs.com</DomainName></Product>
             <Product><ProductName>Ess</ProductName><DomainName>ess.ap-northeast-1.aliyuncs.com</DomainName></Product>
+            <Product><ProductName>ROS</ProductName><DomainName>ros.aliyuncs.com</DomainName></Product>
         </Products>
     </Endpoint>
     <Endpoint name="cn-hangzhou-bj-b01">
